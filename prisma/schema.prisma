@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  PROVINCIAL_ADMIN
+  COUNTY_SUPERVISOR
+}
+
+enum NewsStatus {
+  DRAFT
+  PENDING
+  PUBLISHED
+  SCHEDULED
+}
+
+enum AdPlacement {
+  HERO_BANNER
+  BETWEEN_SECTIONS
+  ARTICLE_SIDEBAR
+  CATEGORY_PAGE
+  MOBILE
+}
+
+model User {
+  id         String   @id @default(cuid())
+  name       String
+  email      String   @unique
+  password   String
+  role       Role     @default(COUNTY_SUPERVISOR)
+  provinceId String?
+  province   Province? @relation(fields: [provinceId], references: [id])
+  countyId   String?
+  county     County?   @relation(fields: [countyId], references: [id])
+  news       News[]
+  logs       ActivityLog[]
+  createdAt  DateTime @default(now())
+}
+
+model Province {
+  id       String   @id @default(cuid())
+  name     String
+  slug     String   @unique
+  counties County[]
+  news     News[]
+  ads      Ad[]
+  users    User[]
+}
+
+model County {
+  id         String   @id @default(cuid())
+  name       String
+  slug       String   @unique
+  provinceId String
+  province   Province @relation(fields: [provinceId], references: [id])
+  news       News[]
+  ads        Ad[]
+  users      User[]
+}
+
+model Category {
+  id   String @id @default(cuid())
+  name String
+  slug String @unique
+  news News[]
+}
+
+model News {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  summary     String
+  content     String
+  image       String
+  gallery     String[]
+  categoryId  String
+  category    Category   @relation(fields: [categoryId], references: [id])
+  provinceId  String
+  province    Province   @relation(fields: [provinceId], references: [id])
+  countyId    String?
+  county      County?     @relation(fields: [countyId], references: [id])
+  authorId    String
+  author      User       @relation(fields: [authorId], references: [id])
+  status      NewsStatus @default(DRAFT)
+  featured    Boolean    @default(false)
+  breaking    Boolean    @default(false)
+  tags        String[]
+  views       Int        @default(0)
+  publishedAt DateTime?
+  scheduledAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Ad {
+  id          String      @id @default(cuid())
+  title        String
+  image        String
+  link         String
+  placement    AdPlacement
+  priority     Int         @default(0)
+  active       Boolean     @default(true)
+  startDate    DateTime?
+  endDate      DateTime?
+  provinceId  String?
+  province     Province?   @relation(fields: [provinceId], references: [id])
+  countyId    String?
+  county       County?     @relation(fields: [countyId], references: [id])
+  impressions  Int         @default(0)
+  clicks       Int         @default(0)
+  createdAt    DateTime    @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  details   String?
+  createdAt DateTime @default(now())
+}
