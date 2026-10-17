@@ -35,7 +35,7 @@ services:
         condition: service_healthy
     command: ["sh", "-ec", "apt-get update -qq && apt-get install -y -qq openssl > /dev/null 2>&1; npm install && npx prisma generate && npx prisma db push --accept-data-loss && npx tsx prisma/seed.ts && exec npm run dev"]
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ >/dev/null 2>&1 || exit 1"]
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
       interval: 10s
       timeout: 5s
       retries: 6
