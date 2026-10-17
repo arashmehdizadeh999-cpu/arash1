@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface NewsFormProps {
   provinces: any[];
@@ -89,7 +90,9 @@ export default function NewsForm({ provinces, counties, categories, news, userRo
         <label className="mb-1.5 block text-xs text-gray-400">آدرس تصویر</label>
         <input type="url" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} dir="ltr"
           className="w-full rounded-lg border border-white/10 bg-navy-800 px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none focus:border-neon/50" placeholder="https://..." />
-        {form.image && <img src={form.image} alt="preview" className="mt-2 h-32 w-full rounded-lg object-cover" />}
+        {form.image && <div className="relative mt-2 h-32 w-full overflow-hidden rounded-lg">
+          <Image fill src={form.image} alt="preview" sizes="(max-width: 768px) 100vw, 600px" className="object-cover" />
+        </div>}
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">

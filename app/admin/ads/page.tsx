@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import Image from 'next/image';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { formatNumber, formatDateTime } from '@/lib/utils';
@@ -55,7 +56,9 @@ export default async function AdsPage() {
                 <tr key={ad.id} className="border-b border-white/5 last:border-0 hover:bg-white/5">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <img src={ad.image} alt={ad.title} className="h-10 w-16 shrink-0 rounded object-cover" loading="lazy" />
+                      <div className="relative h-10 w-16 shrink-0">
+                        <Image fill src={ad.image} alt={ad.title} sizes="64px" className="rounded object-cover" />
+                      </div>
                       <div>
                         <div className="text-white">{ad.title}</div>
                         {ad.province && <div className="text-xs text-gray-500">{ad.province.name}</div>}

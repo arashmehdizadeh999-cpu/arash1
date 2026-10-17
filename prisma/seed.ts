@@ -56,17 +56,21 @@ const categories = [
 ];
 
 const img = (id: string, w = 1200, h = 800) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop&q=80`;
+  `https://picsum.photos/seed/${id}/${w}/${h}`;
 
 // Pool of confirmed-working Unsplash photo IDs
 const imgPool = [
-  '1574258498689-80f1bf3e8b39',
-  '1507525428034-b7238cbb1d63',
-  '1500382017468-9049fedbd479',
-  '1448375240586-8627a304d6e0',
-  '1469474968028-5c23eb691943',
-  '1517649763962-0c62306788f7',
-  '1495020689067-9588540c0e3b',
+  '1506905925346-21bda4d32df4',
+  '1441974231531-c6227db76b6e',
+  '1472214103451-9374bd1c798e',
+  '1444703686981-a3abbc4d4fe3',
+  '1433086966358-54859d0ed716',
+  '1465056836041-7f43ac27dcb5',
+  '1485470733090-0aae1788d5af',
+  '1426604966848-d7adac402bff',
+  '1493246507139-91e8fad9978e',
+  '1490806843957-31f4c9a91c65',
+  '1518398046578-8cca57782e17',
 ];
 
 const newsTemplates = [
@@ -194,10 +198,10 @@ async function main() {
   // Create ads
   await prisma.ad.createMany({
     data: [
-      { title: 'تبلیغات بنر اصلی', image: img('1500382017468-9049fedbd479', 1600, 400), link: '#', placement: AdPlacement.HERO_BANNER, priority: 10, active: true },
-      { title: 'تبلیغات بین بخش‌ها', image: img('1507525428034-b7238cbb1d63', 1200, 200), link: '#', placement: AdPlacement.BETWEEN_SECTIONS, priority: 5, active: true },
-      { title: 'تبلیغات کنار خبر', image: img('1448375240586-8627a304d6e0', 400, 600), link: '#', placement: AdPlacement.ARTICLE_SIDEBAR, priority: 3, active: true },
-      { title: 'تبلیغات موبایل', image: img('1495020689067-9588540c0e3b', 600, 300), link: '#', placement: AdPlacement.MOBILE, priority: 1, active: true },
+      { title: 'تبلیغات بنر اصلی', image: img('1506905925346-21bda4d32df4', 1600, 400), link: '#', placement: AdPlacement.HERO_BANNER, priority: 10, active: true },
+      { title: 'تبلیغات بین بخش‌ها', image: img('1441974231531-c6227db76b6e', 1200, 200), link: '#', placement: AdPlacement.BETWEEN_SECTIONS, priority: 5, active: true },
+      { title: 'تبلیغات کنار خبر', image: img('1472214103451-9374bd1c798e', 400, 600), link: '#', placement: AdPlacement.ARTICLE_SIDEBAR, priority: 3, active: true },
+      { title: 'تبلیغات موبایل', image: img('1444703686981-a3abbc4d4fe3', 600, 300), link: '#', placement: AdPlacement.MOBILE, priority: 1, active: true },
     ],
   });
 

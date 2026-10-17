@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { formatDate, formatNumber } from '@/lib/utils';
 
 interface NewsItem {
@@ -19,7 +20,7 @@ export default function NewsCard({ news, variant = 'default' }: { news: NewsItem
     return (
       <Link href={`/news/${news.slug}`} className="news-card group flex gap-3 rounded-xl glass-card p-3 overflow-hidden">
         <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg">
-          <img src={news.image} alt={news.title} className="h-full w-full object-cover" loading="lazy" />
+          <Image fill src={news.image} alt={news.title} sizes="112px" className="object-cover" />
         </div>
         <div className="flex flex-col justify-center min-w-0">
           <span className="mb-1 text-[10px] text-neon/80">{news.category.name}</span>
@@ -37,7 +38,7 @@ export default function NewsCard({ news, variant = 'default' }: { news: NewsItem
   return (
     <Link href={`/news/${news.slug}`} className="news-card group block overflow-hidden rounded-xl glass-card">
       <div className="relative aspect-[16/10] overflow-hidden">
-        <img src={news.image} alt={news.title} className="h-full w-full object-cover" loading="lazy" />
+        <Image fill src={news.image} alt={news.title} sizes="(max-width: 640px) 50vw, 33vw" className="object-cover" />
         <div className="absolute top-2 right-2">
           <span className="rounded-md bg-neon/90 px-2 py-0.5 text-[10px] font-bold text-navy-950 backdrop-blur-sm">
             {news.category.name}

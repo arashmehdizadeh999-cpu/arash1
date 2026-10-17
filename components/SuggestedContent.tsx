@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { formatDate, formatNumber } from '@/lib/utils';
 
 interface NewsItem {
@@ -27,7 +28,7 @@ export default function SuggestedContent({ news }: { news: NewsItem[] }) {
         {news.map((item) => (
           <Link key={item.id} href={`/news/${item.slug}`} className="news-card group block overflow-hidden rounded-xl glass-card">
             <div className="relative aspect-square overflow-hidden">
-              <img src={item.image} alt={item.title} className="h-full w-full object-cover" loading="lazy" />
+              <Image fill src={item.image} alt={item.title} sizes="(max-width: 640px) 50vw, 17vw" className="object-cover" />
             </div>
             <div className="p-2.5">
               <h3 className="text-xs font-medium text-white line-clamp-2 group-hover:text-neon transition-colors">{item.title}</h3>

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         slug,
         summary,
         content,
-        image: image || 'https://images.unsplash.com/photo-1495020689067-9588540c0e3b?w=1200&h=800&fit=crop&q=80',
+        image: image || 'https://picsum.photos/seed/default/1200/800',
         gallery: image ? [image] : [],
         categoryId,
         provinceId: finalProvinceId,

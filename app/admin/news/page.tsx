@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
@@ -63,7 +64,9 @@ export default async function NewsManagePage() {
                 <tr key={item.id} className="border-b border-white/5 last:border-0 hover:bg-white/5">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <img src={item.image} alt={item.title} className="h-10 w-14 shrink-0 rounded object-cover" loading="lazy" />
+                      <div className="relative h-10 w-14 shrink-0">
+                        <Image fill src={item.image} alt={item.title} sizes="56px" className="rounded object-cover" />
+                      </div>
                       <span className="text-white line-clamp-1 max-w-[200px]">{item.title}</span>
                     </div>
                   </td>

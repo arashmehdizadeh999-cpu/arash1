@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
 import { formatDate, formatNumber } from '@/lib/utils';
 
@@ -51,11 +52,13 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
               i === current ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <img
+            <Image
+              fill
               src={slide.image}
               alt={slide.title}
-              className="h-full w-full object-cover"
-              loading={i === 0 ? 'eager' : 'lazy'}
+              sizes="(max-width: 768px) 100vw, 1280px"
+              className="object-cover"
+              priority={i === 0}
             />
             <div className="absolute inset-0 hero-overlay" />
           </div>

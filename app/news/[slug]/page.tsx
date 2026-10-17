@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getNewsBySlug, getRelatedNews, incrementViews, getAdByPlacement } from '@/lib/data';
 import { formatDate, formatDateTime, formatNumber } from '@/lib/utils';
 import AdBanner from '@/components/AdBanner';
@@ -79,8 +80,8 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
             <ShareButtons title={news.title} slug={news.slug} />
           </div>
 
-          <div className="mb-8 overflow-hidden rounded-2xl">
-            <img src={news.image} alt={news.title} className="w-full object-cover" />
+          <div className="relative mb-8 aspect-[16/9] overflow-hidden rounded-2xl">
+            <Image fill src={news.image} alt={news.title} sizes="(max-width: 1024px) 100vw, 66vw" className="object-cover" />
           </div>
 
           <div className="prose prose-invert max-w-none">
@@ -107,8 +108,8 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
               <h3 className="mb-4 text-lg font-bold text-white">گالری تصاویر</h3>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {news.gallery.map((img, i) => (
-                  <div key={i} className="overflow-hidden rounded-lg aspect-[4/3]">
-                    <img src={img} alt={`${news.title} - تصویر ${i + 1}`} className="h-full w-full object-cover" loading="lazy" />
+                  <div key={i} className="relative overflow-hidden rounded-lg aspect-[4/3]">
+                    <Image fill src={img} alt={`${news.title} - تصویر ${i + 1}`} sizes="(max-width: 640px) 50vw, 33vw" className="object-cover" />
                   </div>
                 ))}
               </div>
